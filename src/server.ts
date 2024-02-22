@@ -1,9 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { UserRouter } from "./router/user.router";
+import { UserRouter } from "./user/user.router";
 import { ConfigServer } from "./config/config";
-import { Connection, DataSource, createConnection } from "typeorm";
 
 //Configurar un servidor basico
 
@@ -32,19 +31,6 @@ class ServerBootstrap extends ConfigServer {
 
   routers(): Array<express.Router> {
     return [new UserRouter().router];
-  }
-
-  /*
-   *@return {*} {Promise<DataSource>}
-   */
-  async dbConnect() : Promise <Connection | void> {
-    //try {
-    return await createConnection(this.typeORMConfig);
-    console.log('Database connected...');
-    /* } catch (error) {
-      console.log(`Database connection error: ${error}`);
-      
-    } */
   }
 
   public listen() {
